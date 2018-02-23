@@ -1,0 +1,36 @@
+"""Lab2 part1 topology 
+"""
+
+from mininet.topo import Topo
+
+class MyTopo( Topo ):
+    "Simple topology example."
+
+    def __init__( self ):
+        "Create custom topo."
+
+        # Initialize topology
+        Topo.__init__( self )
+
+        # Add hosts and switches
+        leftHost = self.addHost( 'h1' )
+        rightHost = self.addHost( 'h2' )
+
+        switchA = self.addSwitch( 'ovsA' )
+        switchB = self.addSwitch( 'OvsB' )
+	switchC = self.addSwitch( 'OvsC' ) 
+	switchD = self.addSwitch( 'OvsD' )
+	switchE = self.addSwitch( 'OvsE' )
+  
+        # Add links
+        self.addLink( leftHost, switchA )
+	self.addLink( switchA, switchB )
+	self.addLink( switchA, switchC )
+	self.addLink( switchB, switchD )
+	self.addLink( switchB, switchE )
+	self.addLink( switchE, switchD )
+	self.addLink( switchE, switchC )
+	self.addLink( swtichC, switchD )
+	self.addLink( switchD, rightHost )
+
+topos = { 'mytopo': ( lambda: MyTopo() ) }
